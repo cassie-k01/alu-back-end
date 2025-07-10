@@ -2,7 +2,7 @@
 """
 Module: 0-gather_data_from_an_API
 
-This script retrieves TODO list progress for a specific employee
+This script retrieves todo list progress for a specific employee
 from the JSONPlaceholder API.
 
 It displays the employee's name, number of completed tasks,
@@ -15,7 +15,6 @@ Dependencies:
     - requests
     - sys
 """
-
 import requests
 import sys
 
