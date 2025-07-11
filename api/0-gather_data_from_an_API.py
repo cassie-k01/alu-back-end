@@ -18,7 +18,7 @@ if __name__ == "__main__":
     users = user_response.json()
     for user in users:
         if user.get("id") == employee_Id:
-            employee_name = user.get("name")
+            Employee_name = user.get("name")
     # filter completed tasks
     done = []
     total = 0
@@ -30,6 +30,9 @@ if __name__ == "__main__":
                 completed += 1
                 done.append(todo.get("title"))
     # Display the progress information
-    print(f"Employee {employee_name} is done with tasks({completed}/{total}):")
+    print(f"Employee {Employee_name} is done with tasks({completed}/{total}):")
+    print(f"Employee Name: {employee_name}")
+    print(f"To Do Count: {completed}/{total}")
+
     for _ in done:
-        print(f"\t {_}")
+        print("\t {_}")
