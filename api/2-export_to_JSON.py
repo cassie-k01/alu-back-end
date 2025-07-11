@@ -51,7 +51,7 @@ def main():
         with open(file_name, "w") as file:
             json.dump(output, file)
         print("Exported {} tasks for user '{}' to {}".format(
-    len(tasks), user_name, file_name))
+        len(tasks), user_name, file_name))
     except IOError as e:
         print(f"File write error: {e}")
 
