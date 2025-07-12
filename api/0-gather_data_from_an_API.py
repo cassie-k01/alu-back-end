@@ -6,32 +6,31 @@ import sys
 
 
 def main():
-    """Main function to retrieve user task data"""
-    if len(sys.argv) < 2:
-        print("Usage: python3 1-export_to_CSV.py <user_id>")
-        sys.exit(1)
-
+    """main function"""
     user_id = int(sys.argv[1])
-    todo_url = "https://jsonplaceholder.typicode.com/todos"
-    user_url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
+    todo_url = 'https://jsonplaceholder.typicode.com/todos'
+    user_url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user_id)
 
-    try:
-        todos = requests.get(todo_url).json()
-        user_info = requests.get(user_url).json()
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching data: {e}")
-        sys.exit(1)
+    response = requests.get(todo_url)
 
-    employee_name = user_info.get("name")
-    completed_tasks = [todo["title"] for todo in todos
-                       if todo["userId"] == user_id and todo["completed"]]
-    total_tasks = len([todo for todo in todos if todo["userId"] == user_id])
+    total_questions = 0
+    completed = []
+    for todo in response.json():
 
-    print(f"Employee Name: {employee_name}")
-    print(f"To Do Count: {len(completed_tasks)}/{total_tasks}")
+        if todo['userId'] == user_id:
+            total_questions += 1
 
-    for i, task in enumerate(completed_tasks, 1):
-        print(f"Task {i}: {task}")
+            if todo['completed']:
+                completed.append(todo['title'])
+
+    user_name = requests.get(user_url).json()['name']
+
+    printer = ("Employee {} is done with tasks({}/{}):".format(user_name,
+               len(completed), total_questions))
+    print(printer)
+    for q in completed:
+        print("\t {}".format(q))
+
 
 if __name__ == '__main__':
     main()
